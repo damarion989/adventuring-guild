@@ -7,7 +7,7 @@ The list is private so other parts of the app cannot change it directly. They ca
 
 notifyListeners is like telling the summary, "The party changed. Check the new information." Without it, a hero could be added to the data while the screen still shows the old count and cost until something else causes a rebuild.
 
-My question or something I need help with: [Write here.]
+
 
 ## Phase 2: Sharing one party
 
@@ -15,7 +15,7 @@ ChangeNotifierProvider creates one PartyModel above MyApp. Both the Guild Hall a
 
 If the provider only wrapped one hero's list item, the summary outside that item could not get the model from that provider. It needs to be above both views.
 
-My question or something I need help with: [Write here.]
+
 
 ## Phase 3: Recruiting heroes
 
@@ -23,7 +23,7 @@ The Guild Hall shows each hero's name, role, cost, and a Recruit button. Pressin
 
 read gets the model without listening for future changes. watch listens for changes and is used while building a widget that should update. The button uses read because it only needs to tell the model to add someone. It does not need to start listening inside the button press.
 
-My question or something I need help with: [Write here.]
+
 
 ## Phase 4: Updating the summary
 
@@ -31,7 +31,7 @@ The steps are: press Recruit, call addAdventurer, add the hero to the list, and 
 
 Dismiss uses removeAdventurer. That method removes one matching hero and calls notifyListeners so the summary updates again.
 
-My question or something I need help with: [Write here.]
+
 
 ## Phase 5: Review and testing
 
@@ -49,6 +49,3 @@ The app has not been run in Flutter in the preparation environment. These are ch
 - Recruit Aria twice: count 2 and cost 300. Dismiss one: count 1 and cost 150.
 - Check that changes appear without refreshing the screen.
 
-My actual results after running the app: [Write here.]
-
-Any bugs, questions, or things I still need help with: [Write here.]
