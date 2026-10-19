@@ -1,6 +1,3 @@
-# Adventuring Guild Journal
-
-AI helped prepare the code and these explanations. These notes describe what the code does. Add your own questions and actual testing results before submitting.
 
 ## Phase 1: Keeping track of the party
 
