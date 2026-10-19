@@ -1,18 +1,57 @@
 # Adventuring Guild Journal
 
-## Phase 1
-The code defines an Adventurer class with a name, role, and gold cost. PartyModel keeps the hired adventurers in a private list and calculates the count and total gold cost. The public getter returns an unmodifiable list so other code cannot change it directly. notifyListeners tells listening widgets that the model changed. Without that call, adding a hero would change the data, but the summary could still show the old values until another rebuild.
+AI helped prepare the code and these explanations. These notes describe what the code does. Add your own questions and actual testing results before submitting.
 
-## Phase 2
-ChangeNotifierProvider is above MyApp so both the Guild Hall and Party Summary can access the same PartyModel. If it only wrapped an individual list item, widgets outside that item's subtree could not access it. Placing it above both views lets them share the party.
+## Phase 1: Keeping track of the party
 
-## Phase 3
-context.read gets the model without subscribing the widget to updates. context.watch listens for changes when used during building. The Recruit button uses read because its job is to perform an action. The summary is responsible for listening and updating its display.
+Adventurer stores a hero's name, role, and gold cost. PartyModel keeps the list of hired heroes. It also counts them and adds up their gold costs using a loop.
 
-## Phase 4
-When Recruit is pressed, the button calls addAdventurer on the shared model. That method adds the hero to the private list and calls notifyListeners. The Consumer in QuestPartySummary receives the notification and rebuilds its widgets with the current count, total cost, and roster. Dismiss follows the same process using removeAdventurer.
+The list is private so other parts of the app cannot change it directly. They can look at the list, but they must use the add and remove methods to change it.
 
-## Phase 5: Review and testing status
-The AI review recommended a simple shared ChangeNotifier model, a provider above both views, read for actions, and Consumer for display updates. These choices are included in the code. Duplicates are allowed because the assignment does not require unique heroes. Removing a duplicate removes one entry at a time. The empty-party message handles the case where no heroes are hired.
+notifyListeners is like telling the summary, "The party changed. Check the new information." Without it, a hero could be added to the data while the screen still shows the old count and cost until something else causes a rebuild.
 
-The app has not been executed in Flutter in the preparation environment because Flutter is not installed there. Manual testing is still required. After running the checks in README.md, add the actual results and any bugs found here before submitting. No manual test results are claimed in this journal.
+My question or something I need help with: [Write here.]
+
+## Phase 2: Sharing one party
+
+ChangeNotifierProvider creates one PartyModel above MyApp. Both the Guild Hall and Party Summary are below it, so they can use the same party information.
+
+If the provider only wrapped one hero's list item, the summary outside that item could not get the model from that provider. It needs to be above both views.
+
+My question or something I need help with: [Write here.]
+
+## Phase 3: Recruiting heroes
+
+The Guild Hall shows each hero's name, role, cost, and a Recruit button. Pressing Recruit uses context.read to get PartyModel and call addAdventurer.
+
+read gets the model without listening for future changes. watch listens for changes and is used while building a widget that should update. The button uses read because it only needs to tell the model to add someone. It does not need to start listening inside the button press.
+
+My question or something I need help with: [Write here.]
+
+## Phase 4: Updating the summary
+
+The steps are: press Recruit, call addAdventurer, add the hero to the list, and call notifyListeners. Consumer listens to PartyModel and rebuilds the summary with the new count, cost, and names.
+
+Dismiss uses removeAdventurer. That method removes one matching hero and calls notifyListeners so the summary updates again.
+
+My question or something I need help with: [Write here.]
+
+## Phase 5: Review and testing
+
+The AI review suggested keeping one shared model, putting the provider above both views, using read for buttons, and Consumer for the summary. The code follows those suggestions without adding extra libraries beyond provider.
+
+The code allows recruiting the same hero more than once. Dismiss removes one entry at a time. An empty party should show a count and cost of zero and a message saying no heroes have been recruited.
+
+The app has not been run in Flutter in the preparation environment. These are checks to perform, not claimed test results:
+
+- Start with an empty party: count 0 and cost 0.
+- Recruit Aria: count 1 and cost 150.
+- Recruit Eldrin: count 2 and cost 350.
+- Dismiss Aria: count 1 and cost 200.
+- Dismiss Eldrin: count 0 and cost 0.
+- Recruit Aria twice: count 2 and cost 300. Dismiss one: count 1 and cost 150.
+- Check that changes appear without refreshing the screen.
+
+My actual results after running the app: [Write here.]
+
+Any bugs, questions, or things I still need help with: [Write here.]
